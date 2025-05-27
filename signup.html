@@ -1,20 +1,83 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Signup - Bitvest Capital</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Sign Up | Bitvest Capital</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ccc;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .signup-container {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      width: 300px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    input {
+      background-color: #333;
+      color: #fff;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDXdiNO5OtSN_opHdOAQ8ypSEtA64vGf6Y",
+      authDomain: "bitvest---capital.firebaseapp.com",
+      projectId: "bitvest---capital",
+      storageBucket: "bitvest---capital.appspot.com",
+      messagingSenderId: "841212181221",
+      appId: "1:841212181221:web:bb4406f836b5fac37df20c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.signup = () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Sign-up successful! Redirecting to dashboard...");
+          window.location.href = "dashboard.html";
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    };
+  </script>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Sign Up</h2>
-    <input type="email" id="signupEmail" placeholder="Email" />
-    <input type="password" id="signupPassword" placeholder="Password" />
+  <div class="signup-container">
+    <h2>Create an Account</h2>
+    <input type="email" id="email" placeholder="Email Address" required />
+    <input type="password" id="password" placeholder="Password" required />
     <button onclick="signup()">Sign Up</button>
-    <p>Already have an account? <a href="login.html">Login</a></p>
   </div>
-  <script src="firebase-config.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>
